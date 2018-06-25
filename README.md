@@ -5,7 +5,7 @@ This is an unofficial Tensorflow re-implementation of [PyramidBox: A Context-ass
 ## Note
 There is still a gap in performance from the paper. May be caused by several reasons:
 * Without implementing data-anchor-sampling.
-* Differences of data augment from original.
+* Differences of data augmentation from original.
 * The batch size in the paper is 16, but I used 1 because of the limitation of memory.
 * Hyperparameters not mentioned in the paper.
 * Differences of deep learning framework.
@@ -77,7 +77,7 @@ octave wider_eval.m
 
 ## TODO
 * Add data-anchor-sampling
-* Try more logical and rigorous data augment
+* Try more logical and rigorous data augmentation
 * Transfer to other backbone networks
 
 ## Reference
