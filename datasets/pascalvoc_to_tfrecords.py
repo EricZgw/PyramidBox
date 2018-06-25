@@ -189,7 +189,8 @@ def run(dataset_dir, output_dir, name, shuffling=False):
     path = os.path.join(dataset_dir, DIRECTORY_ANNOTATIONS)
     if not tf.gfile.Exists(path):
         raise Exception("{} does not exist".format(path))
-    
+    if not os.path.isdir(output_dir):
+        os.mkdir(output_dir)
     filenames = sorted(os.listdir(path))
     if shuffling:
         random.seed(12345)
@@ -220,8 +221,8 @@ def run(dataset_dir, output_dir, name, shuffling=False):
     
 if __name__ == "__main__": 
     
-    dataset_dir = 'widerface/'
-    output_dir = "../tfrecords/"
+    dataset_dir = 'datasets/widerface/'
+    output_dir = "tfrecords/"
     name='voc_train_2007'
     
     run(dataset_dir, output_dir, name=name, shuffling=True)

@@ -7,6 +7,7 @@ There is still a gap in performance from the paper. May be caused by several rea
 * Without implementing data-anchor-sampling.
 * Differences of data augment from original.
 * The batch size in the paper is 16, but I used 1 because of the limitation of memory.
+* Hyperparameters not mentioned in the paper.
 * Differences of deep learning framework.
 
 ## Results
@@ -14,27 +15,26 @@ There is still a gap in performance from the paper. May be caused by several rea
 ![](https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif)
 ![](https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif)
 
-Results on WIDER FACE validation set
+###Results on WIDER FACE validation set:
+This is just a very casual training result. I believe you can achieve better results after trying some other hyperparameters. For example: batch size, learning rate and some parameters related to the loss function,etc.
 <center>
-
 | Method | AP Easy | AP Medium | AP Hard |
 |:-------|:-------:|:-------:|:-------:
 | original | 96.1 | 95.0 | 88.9 |
 | **this repo** | **90.6** | **88.8** | **73.4** |
-
 </center>
 
 ## Usage
 ### Prerequisites
 (Only tested on) Ubuntu 16.04 with:
-* Python 3.5
+* Python3
 * Tensorflow-gpu 1.4
 * OpenCV3
 ### Clone the repo
 ```
 git clone https://github.com/EricZgw/PyramidBox.git
 ```
-Download PyramidBox models form [BaiduYun](https://pan.baidu.com/s/1kC-G_e8louDig5Y-NK142g) .
+Download PyramidBox models form [BaiduYun](https://pan.baidu.com/s/1kC-G_e8louDig5Y-NK142g).
 ### Demo
 Run the following script for visualization:
 ```
@@ -55,16 +55,15 @@ datasets/
 ```
 3. Run the following script to generate TFRecords:
 ```
-cd datasets
-python pascalvoc_to_tfrecords.py
+python datasets/pascalvoc_to_tfrecords.py
+You can run `check_data_io.py` to check data. This step is not necessary.
 ```
-You can run `check_data_io.py` to check data. This step is not necessary.<br>
-4. The training strategy is two-stages:<br> 
-First run `train_model.py` with below to train additional PyramidBox layers:
+4. The training strategy is two-stages:
+First run `train_model.py` with below setting to train additional PyramidBox layers:
 ```
 self.fine_tune_vgg16 = False
 ```
-Then set `self.fine_tune_vgg16 =Ture` to run `train_model.py` to train total network.
+5. Then set `self.fine_tune_vgg16 =Ture` to run `train_model.py` to train total network.
 ### Validation
 Run the following script for evaluation and get mAP:
 ```
@@ -77,7 +76,6 @@ octave wider_eval.m
 * Add data-anchor-sampling
 * Try more logical and rigorous data augment
 * Transfer to other backbone networks
-Please stay tuned.
 
 ## Reference
 

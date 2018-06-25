@@ -54,8 +54,6 @@ def process_image(img, select_threshold=0.05, nms_threshold=0.3):
         scale=640./w
         w=640
         h=int(h*scale)
-    if h>5000:
-        h=3000
     img_tmp=Image.fromarray(np.uint8(img))
     resized_img=img_tmp.resize((w,h))    
     net_shape=np.array(resized_img).shape[:2]
