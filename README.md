@@ -12,10 +12,10 @@ There is still a gap in performance from the paper. May be caused by several rea
 
 ## Results
 ### Face Detection
-![](https://github.com/EricZgw/PyramidBox/blob/master/demo/1_output.png)
-![](https://github.com/EricZgw/PyramidBox/blob/master/demo/2_output.png)
+       ![](https://github.com/EricZgw/PyramidBox/blob/master/demo/1_output.png)
+       ![](https://github.com/EricZgw/PyramidBox/blob/master/demo/2_output.png)
 
-###Results on WIDER FACE validation set:
+### Results on WIDER FACE validation set:
 This is just a very casual training result. I believe you can achieve better results after trying some other hyperparameters. For example: batch size, learning rate and some parameters related to the loss function,etc.
 <center>
 | Method | AP Easy | AP Medium | AP Hard |
