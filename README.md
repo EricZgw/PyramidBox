@@ -32,9 +32,10 @@ This is just a very casual training result. I believe you can achieve better res
 * Python3
 * Tensorflow-gpu 1.4
 * OpenCV3
-### Clone the repo
+### Clone the repo 
 ```
 git clone https://github.com/EricZgw/PyramidBox.git
+python makedir.py
 ```
 Download PyramidBox models form [BaiduYun](https://pan.baidu.com/s/1kC-G_e8louDig5Y-NK142g).
 ### Demo
