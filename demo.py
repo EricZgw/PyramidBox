@@ -90,7 +90,7 @@ def process_image(img, select_threshold=0.35, nms_threshold=0.1):
 
 
 # Test on some demo image and visualize output.
-path = 'demo/'
+path = 'demo/images/'
 image_names = sorted(os.listdir(path))
 for i in range(len(image_names)):
     img = np.array(Image.open(path + image_names[i]))
