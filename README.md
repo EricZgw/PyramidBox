@@ -37,7 +37,7 @@ This is just a very casual training result. I believe you can achieve better res
 git clone https://github.com/EricZgw/PyramidBox.git
 python makedir.py
 ```
-Download PyramidBox models form [BaiduYun](https://pan.baidu.com/s/1kC-G_e8louDig5Y-NK142g).
+Download PyramidBox models form [BaiduYun](https://pan.baidu.com/s/1kC-G_e8louDig5Y-NK142g) or [GoogleDrive](https://drive.google.com/open?id=1VpR5wDXJWy3hjK3jsWa1GhSPA4YdejL3) .
 ### Demo
 Run the following script for visualization:
 ```
