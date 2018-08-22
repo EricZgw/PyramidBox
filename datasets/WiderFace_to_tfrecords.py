@@ -54,9 +54,10 @@ def _process_image(info,dataset_path):
     filename = os.path.join(dataset_path, info[0] + '.jpg')
     image_data = tf.gfile.FastGFile(filename, 'rb').read()
     img = cv2.imread(filename)
-    cv2.imshow('aa', img)
 
-    print(filename)
+
+    #print(filename)
+    #H,W,C
     shape = img.shape
     #print (shape)
     data_example = dict()
@@ -74,7 +75,7 @@ def _process_image(info,dataset_path):
         info[i] = float(info[i])
         assert  isinstance(info[i],float)
         if i%4 == 1:
-            print(info[i])
+           # print(info[i])
             bbox['xmin'] = info[i]
         if i%4 == 2:
             bbox['ymin'] = info[i]
@@ -84,7 +85,7 @@ def _process_image(info,dataset_path):
             bbox['ymax'] = info[i]
             bboxes.append(bbox)
             bbox = dict()
-    print('filename: %s, bboxes: %s' %(filename,bboxes))
+   # print('filename: %s, bboxes: %s' %(filename,bboxes))
     data_example['bboxes'] = bboxes
 
 
@@ -93,7 +94,7 @@ def _process_image(info,dataset_path):
     #                   (int(float(bbox['xmin'])),int(float(bbox['ymin']))),
     #                   (int(float(bbox['xmax'])),int(float(bbox['ymax']))),
     #                   (0,0,255))
-
+    # cv2.imshow('aa', img)
 
 
 
@@ -124,18 +125,19 @@ def _convert_to_example(data_example):
     shape= []
     for s in data_example['shape']:
         shape.append(s)
+    #print(shape)
     image_data = data_example['image']
     filename = data_example['name']
     for bbox in data_example['bboxes']:
         assert len(bbox) == 4
         # pylint: disable=expression-not-assigned
-        xmin.append(bbox['xmin'])
-        ymin.append(bbox['ymin'])
-        xmax.append(bbox['xmax'])
-        ymax.append(bbox['ymax'])
+        xmin.append(bbox['xmin']/shape[1])
+        ymin.append(bbox['ymin']/shape[0])
+        xmax.append(bbox['xmax']/shape[1])
+        ymax.append(bbox['ymax']/shape[0])
         # pylint: enable=expression-not-assigned
 
-    print(xmin)
+    #print(xmin)
     image_format = b'JPEG'
     example = tf.train.Example(features=tf.train.Features(feature={
             'image/height': int64_feature(shape[0]),
@@ -205,15 +207,15 @@ def run(anno_path,dataset_path, output_dir, name, shuffling=False):
 
 
                 
-                print('Converting image %d/%d %s shard %d' % (i+1, len(annotations), filename, shard_id+1))
-                #save the file to tfrecords
-                '''
-                print(filename)
-                img = cv2.imread(filename + '.jpg')
-                cv2.imshow(filename, img)
-                cv2.waitKey(0)
-               
-                '''
+        print('Converting shard %d' % ( shard_id+1))
+            #save the file to tfrecords
+
+        # print(filename)
+        # img = cv2.imread(filename + '.jpg')
+        # cv2.imshow(filename, img)
+        # cv2.waitKey(0)
+        #
+
 
 
 
