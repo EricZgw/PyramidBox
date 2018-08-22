@@ -54,6 +54,9 @@ def _process_image(info,dataset_path):
     filename = os.path.join(dataset_path, info[0] + '.jpg')
     image_data = tf.gfile.FastGFile(filename, 'rb').read()
     img = cv2.imread(filename)
+    cv2.imshow('aa', img)
+
+    print(filename)
     shape = img.shape
     #print (shape)
     data_example = dict()
@@ -71,7 +74,7 @@ def _process_image(info,dataset_path):
         info[i] = float(info[i])
         assert  isinstance(info[i],float)
         if i%4 == 1:
-
+            print(info[i])
             bbox['xmin'] = info[i]
         if i%4 == 2:
             bbox['ymin'] = info[i]
@@ -80,19 +83,19 @@ def _process_image(info,dataset_path):
         if i%4 == 0:
             bbox['ymax'] = info[i]
             bboxes.append(bbox)
-    #print('filename: %s, bboxes: %s' %(filename,bboxes))
+            bbox = dict()
+    print('filename: %s, bboxes: %s' %(filename,bboxes))
     data_example['bboxes'] = bboxes
 
-    '''
-        for bbox in bboxes:
-        cv2.rectangle(img,
-                      (int(float(bbox['xmin'])),int(float(bbox['ymin']))),
-                      (int(float(bbox['xmax'])),int(float(bbox['ymax']))),
-                      (0,0,255))
-        cv2.imshow('lala',img)
-        cv2.waitKey(0)
 
-    '''
+    # for bbox in bboxes:
+    #     cv2.rectangle(img,
+    #                   (int(float(bbox['xmin'])),int(float(bbox['ymin']))),
+    #                   (int(float(bbox['xmax'])),int(float(bbox['ymax']))),
+    #                   (0,0,255))
+
+
+
 
 
 
@@ -132,6 +135,7 @@ def _convert_to_example(data_example):
         ymax.append(bbox['ymax'])
         # pylint: enable=expression-not-assigned
 
+    print(xmin)
     image_format = b'JPEG'
     example = tf.train.Example(features=tf.train.Features(feature={
             'image/height': int64_feature(shape[0]),
