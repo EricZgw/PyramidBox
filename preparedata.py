@@ -1,7 +1,6 @@
 import math
 
 import matplotlib.pyplot as plt
-# from nets import nets_factory
 import numpy as np
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
@@ -37,6 +36,13 @@ class PrepareData():
             image, labels, bboxes, _ = preprocess_for_eval(image, labels, bboxes)
         return image, labels, bboxes
     def __get_images_labels_bboxes(self,data_sources, num_samples,is_training_data):
+        '''
+
+        :param data_sources: .tfrecord files
+        :param num_samples:  number of samples in all the files
+        :param is_training_data:
+        :return:
+        '''
         
         self.dataset = pascalvoc_datasets.get_dataset_info(data_sources, num_samples)
         self.is_training_data = is_training_data
@@ -158,12 +164,11 @@ class PrepareData():
     def get_voc_2012_train_data(self,is_training_data=True):
         data_sources = "../data/voc/tfrecords/voc_train_2012*.tfrecord"
         num_samples = pascalvoc_datasets.DATASET_SIZE['2012_train']
-        
         return self.__get_images_labels_bboxes(data_sources, num_samples, is_training_data)
     
     def get_wider_face_train_data(self,is_training_data=True):
         data_sources = "../DATA/wider_tfrecord/Wider_Face*.tfrecord"
-        num_samples = pascalvoc_datasets.DATASET_SIZE['wider_face_train'] 
+        num_samples = pascalvoc_datasets.DATASET_SIZE['wider_face_train']
         
         return self.__get_images_labels_bboxes(data_sources, num_samples, is_training_data)
 

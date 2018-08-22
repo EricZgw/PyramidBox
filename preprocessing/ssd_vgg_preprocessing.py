@@ -245,23 +245,17 @@ def distorted_bounding_box_crop(image,
 def preprocess_for_train(image, labels, bboxes,
                          out_shape=EVAL_SIZE, data_format='NHWC',
                          scope='ssd_preprocessing_train'):
-    """Preprocesses the given image for training.
+    '''
+    Pre-processes the given image for training.
+    :param image: images
+    :param labels: labels for faces
+    :param bboxes: bounding boxes
+    :param out_shape: output shape
+    :param data_format:
+    :param scope:
+    :return:
+    '''
 
-    Note that the actual resizing scale is sampled from
-        [`resize_size_min`, `resize_size_max`].
-
-    Args:
-        image: A `Tensor` representing an image of arbitrary size.
-        output_height: The height of the image after preprocessing.
-        output_width: The width of the image after preprocessing.
-        resize_side_min: The lower bound for the smallest side of the image for
-            aspect-preserving resizing.
-        resize_side_max: The upper bound for the smallest side of the image for
-            aspect-preserving resizing.
-
-    Returns:
-        A preprocessed image.
-    """
     fast_mode = False
     with tf.name_scope(scope, 'ssd_preprocessing_train', [image, labels, bboxes]):
         if image.get_shape().ndims != 3:

@@ -46,7 +46,7 @@ class TrainModel(PrepareData):
         self.rmsprop_decay = 0.9
         self.rmsprop_momentum = 0.9
 
-        self.train_dir = '/tmp/tfmodel/'
+        self.train_dir = './tfmodel/'
         self.max_number_of_steps = None
 
         self.checkpoint_path = None
@@ -55,7 +55,7 @@ class TrainModel(PrepareData):
 
         self.batch_size = 1
 
-        self.save_interval_secs = 60 * 60 * 1  # one hour
+        self.save_interval_secs = 600  # one hour
         self.save_summaries_secs = 30
 
         self.learning_rate_decay_factor = 0.5
@@ -197,7 +197,7 @@ class TrainModel(PrepareData):
 
         self.__add_summaries(end_points, learning_rate, total_loss)
 
-        gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.9)
+        gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=1)
         config = tf.ConfigProto(log_device_placement=False,
                                 gpu_options=gpu_options)
 
@@ -214,10 +214,8 @@ class TrainModel(PrepareData):
             number_of_steps=self.max_number_of_steps,
             log_every_n_steps=self.log_every_n_steps,
             save_summaries_secs=self.save_summaries_secs,
-            #                 session_config=config,
-            save_interval_secs=self.save_interval_secs)
-
-        return
+            session_config=config)
+            #save_interval_secs=self.save_interval_secs)
 
     def debug_training(self, sess, global_step):
         np_global_step = sess.run(global_step)
