@@ -1,19 +1,15 @@
 #coding=utf-8
 import os
-import math
-import random
-import numpy as np
-import tensorflow as tf
-import cv2
-from PIL import Image
-import scipy.io as sio
-from tensorflow.contrib import slim
-import matplotlib.pyplot as plt
 import sys
+
+import numpy as np
+import scipy.io as sio
+import tensorflow as tf
+from PIL import Image
+
 sys.path.append('../')
 
 from preprocessing import ssd_vgg_preprocessing
-from utility import visualization
 from nets.ssd import g_ssd_model
 import nets.np_methods as np_methods
 

@@ -1,19 +1,17 @@
-from datasets import pascalvoc_datasets
-import tensorflow as tf
+import math
+
 import matplotlib.pyplot as plt
-import tensorflow.contrib.slim as slim
-# from nets import nets_factory
-from preprocessing import preprocessing_factory
 import numpy as np
-import cv2
-from utility import visualization
+import tensorflow as tf
+import tensorflow.contrib.slim as slim
+
+import tf_utils
+from datasets import pascalvoc_datasets
 from nets.ssd import g_ssd_model
 from preprocessing.ssd_vgg_preprocessing import np_image_unwhitened
-from preprocessing.ssd_vgg_preprocessing import preprocess_for_train
 from preprocessing.ssd_vgg_preprocessing import preprocess_for_eval
-import tf_utils
-import math
-import tf_extended as tfe
+from preprocessing.ssd_vgg_preprocessing import preprocess_for_train
+from utility import visualization
 
 
 class PrepareData():
@@ -23,7 +21,7 @@ class PrepareData():
         self.labels_offset = 0
         
         
-        self.matched_thresholds = 0.35 #threshold for anchor matching strategy
+        self.matched_thresholds = 0.3 #threshold for anchor matching strategy
       
         
        
@@ -38,6 +36,13 @@ class PrepareData():
             image, labels, bboxes, _ = preprocess_for_eval(image, labels, bboxes)
         return image, labels, bboxes
     def __get_images_labels_bboxes(self,data_sources, num_samples,is_training_data):
+        '''
+
+        :param data_sources: .tfrecord files
+        :param num_samples:  number of samples in all the files
+        :param is_training_data:
+        :return:
+        '''
         
         self.dataset = pascalvoc_datasets.get_dataset_info(data_sources, num_samples)
         self.is_training_data = is_training_data
@@ -159,14 +164,14 @@ class PrepareData():
     def get_voc_2012_train_data(self,is_training_data=True):
         data_sources = "../data/voc/tfrecords/voc_train_2012*.tfrecord"
         num_samples = pascalvoc_datasets.DATASET_SIZE['2012_train']
-        
         return self.__get_images_labels_bboxes(data_sources, num_samples, is_training_data)
     
-    def get_voc_2007_2012_train_data(self,is_training_data=True):
-        data_sources = "tfrecords/voc_train*.tfrecord"
-        num_samples = pascalvoc_datasets.DATASET_SIZE['wider_face_train'] 
+    def get_wider_face_train_data(self,is_training_data=True):
+        data_sources = "../DATA/wider_tfrecord/Wider_Face*.tfrecord"
+        num_samples = pascalvoc_datasets.DATASET_SIZE['wider_face_train']
         
         return self.__get_images_labels_bboxes(data_sources, num_samples, is_training_data)
+
     def get_voc_2007_test_data(self):
         data_sources = "../data/voc/tfrecords/voc_test_2007*.tfrecord"
         num_samples = pascalvoc_datasets.DATASET_SIZE['2007_test']
@@ -220,7 +225,7 @@ class PrepareData():
 #             batch_data= self.get_voc_2007_train_data(is_training_data=True)
 #             batch_data = self.get_voc_2007_test_data()
 #             batch_data = self.get_voc_2012_train_data()
-            batch_data = self.get_voc_2007_2012_train_data(is_training_data = True)
+            batch_data = self.get_wider_face_train_data(is_training_data = True)
 
 
             return self.iterate_file_name(batch_data)

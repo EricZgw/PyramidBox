@@ -12,7 +12,7 @@ obj= PrepareData()
 
 image, filename,glabels,gbboxes,gdifficults,gclasses_face, localizations_face, gscores_face,\
 gclasses_head, localizations_head, gscores_head,gclasses_body, localizations_body,\
-gscores_body=obj.get_voc_2007_2012_train_data()
+gscores_body=obj.get_wider_face_train_data()
 
 ssd_anchors = g_ssd_model.ssd_anchors_all_layers()
 
